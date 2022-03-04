@@ -32,7 +32,7 @@ const getCalendarEvents = (authClient) => {
       maxResults: 9999,
       singleEvents: true,
       orderBy: 'startTime',
-      showDeleted: true,
+      showDeleted: false,
     }, (err, response) => {
       if (err) {
         console.log('The API returned an error: ' + err);
