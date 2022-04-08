@@ -1,0 +1,32 @@
+name: Deploy TUG Calendar Production
+# on main branch updates
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Get Google Project Config
+        run: |
+          echo  '${{ secrets.TUG_GOOGLE_TOKEN }}' > ./tug-calendar-f52da1f5cc70.json
+        #serverless deploy
+      - name: serverless deploy
+        uses: serverless/github-action@v3
+        with:
+          args: deploy
+        env:
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          SERVERLESS_ACCESS_KEY: '${{ secrets.SERVERLESS_ACCESS_KEY }}'

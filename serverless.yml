@@ -1,0 +1,37 @@
+service: tug-calendar
+
+frameworkVersion: '3'
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stackTags:
+    Tug:name: "Tug Calendar Service"
+    Tug:desc: "Lambda function to call google api to get calendar events"
+  stage: production
+  region: ${opt:region, self:custom.defaultRegion}
+
+custom:
+  defaultRegion: eu-central-1
+  defaultStage: production
+  currentStage: ${opt:stage, self:custom.defaultStage}
+  environments:
+    dev: 'dev'
+    prod: 'prod'
+  prune:
+    automatic: true
+    number: 3
+
+plugins:
+  - serverless-plugin-resource-tagging
+  - serverless-offline
+  - serverless-prune-plugin
+
+functions:
+  rateHandler:
+    handler: handler.main
+    events:
+      # Invoke Lambda function every minute
+      - schedule: cron(0 8 * * *)
+    environment:
+      TUG_NS_API: ${ssm:TUG_NS_API}
+      TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}

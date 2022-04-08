@@ -1,12 +1,14 @@
 const { google } = require('googleapis');
 const calendar = google.calendar('v3');
-const privatekey = require("./tug-calendar-f52da1f5cc70.json");
+const privateKey = require("../tug-calendar-f52da1f5cc70.json");
+
+const MAX_EVENTS = 100;
 
 const configureAuthClient = () => {
   return new google.auth.JWT(
-    privatekey.client_email,
+    privateKey.client_email,
     null,
-    privatekey.private_key,
+    privateKey.private_key,
     ['https://www.googleapis.com/auth/calendar']
   );
 };
@@ -29,7 +31,7 @@ const getCalendarEvents = (authClient) => {
       auth: authClient,
       calendarId: 'pcl9qikhvn522cqijuoitfse2s@group.calendar.google.com',
       timeMin: (new Date()).toISOString(),
-      maxResults: 9999,
+      maxResults: MAX_EVENTS,
       singleEvents: true,
       orderBy: 'startTime',
       showDeleted: false,
@@ -40,10 +42,10 @@ const getCalendarEvents = (authClient) => {
       } else {
         const events = response.data.items;
         if (events.length) {
-          console.log('Upcoming 10 events:');
+          console.log(`Requested upcoming events from Calendar: ${MAX_EVENTS}`);
           events.map((event, i) => {
             const start = event.start.dateTime || event.start.date;
-            console.log(`${start} - ${event.summary}`);
+            // console.log(`${start} - ${event.summary}`);
           });
 
           resolve(events)
@@ -55,12 +57,8 @@ const getCalendarEvents = (authClient) => {
   });
 };
 
-const run = async () => {
-  const authClient = configureAuthClient();
-  const tokens = await authoriseAuthClient(authClient);
-  console.log('tokens :', tokens);
-  const events = await getCalendarEvents(authClient);
-  console.log(events);
+module.exports = {
+  configureAuthClient,
+  authoriseAuthClient,
+  getCalendarEvents
 };
-
-run();

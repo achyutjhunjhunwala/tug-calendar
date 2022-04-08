@@ -2,14 +2,21 @@
   "name": "tug-calendar",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx nodemon --exec \"serverless offline start\" --watch '*/**/*.js' --watch 'serverless.yml'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "googleapis": "^95.0.0"
+    "googleapis": "^95.0.0",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "serverless": "^3.2.0",
+    "serverless-offline": "^8.4.0",
+    "serverless-plugin-resource-tagging": "^1.2.0",
+    "serverless-prune-plugin": "^2.0.1"
   }
 }
