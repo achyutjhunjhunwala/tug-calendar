@@ -31,7 +31,7 @@ functions:
     handler: handler.main
     events:
       # Invoke Lambda function every minute
-      - schedule: cron(0 8 * * * *)
+      - schedule: cron(0 8 * * ? *)
     environment:
       TUG_NS_API: ${ssm:TUG_NS_API}
       TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
