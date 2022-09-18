@@ -24,13 +24,17 @@ const getEventsForNextXDays = (numberOfDays, events) => {
         title: event.summary,
         start: event.start.dateTime,
         end: event.end.dateTime,
-        duration: (new Date(event.end.dateTime) - new Date(event.start.dateTime))/1000/60 + ' minutes'
+        duration: (new Date(event.end.dateTime) - new Date(event.start.dateTime)) / 1000 / 60 + ' minutes'
       }
-    });
-    nextXDays.push({
-      date: nextDay,
-      events: nextDayEvents
-    });
+    }).filter(event => !!event.summary);
+
+    if (nextDayEvents?.length) {
+      nextXDays.push({
+        date: nextDay,
+        events: nextDayEvents
+      });
+    }
+
   }
   return nextXDays;
 };

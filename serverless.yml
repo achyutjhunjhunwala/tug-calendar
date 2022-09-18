@@ -30,7 +30,7 @@ functions:
   daily:
     handler: daily.main
     events:
-      # Invoke Lambda function every minute
+      # Invoke Lambda function every day at 6 AM UTC
       - schedule: cron(0 6 * * ? *)
     environment:
       TUG_NS_API: ${ssm:TUG_NS_API}
@@ -38,7 +38,7 @@ functions:
   weekly:
     handler: weekly.main
     events:
-      # Invoke Lambda function every minute
+      # Invoke Lambda function every day at 8 AM UTC
       - schedule: cron(0 8 * * ? *)
     environment:
       TUG_NS_API: ${ssm:TUG_NS_API}
@@ -46,7 +46,7 @@ functions:
   monthly:
     handler: monthly.main
     events:
-      # Invoke Lambda function every minute
+      # Invoke Lambda function every day at 6:30 AM UTC
       - schedule: cron(30 6 * * ? *)
     environment:
       TUG_NS_API: ${ssm:TUG_NS_API}
