@@ -26,7 +26,7 @@ const getEventsForNextXDays = (numberOfDays, events) => {
         end: event.end.dateTime,
         duration: (new Date(event.end.dateTime) - new Date(event.start.dateTime)) / 1000 / 60 + ' minutes'
       }
-    }).filter(event => !!event.summary);
+    }).filter(event => !!event.title);
 
     if (nextDayEvents?.length) {
       nextXDays.push({
