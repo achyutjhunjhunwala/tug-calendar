@@ -3,7 +3,7 @@ service: tug-calendar
 frameworkVersion: '3'
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs20.x
   stackTags:
     Tug:name: "Tug Calendar Service"
     Tug:desc: "Lambda function to call google api to get calendar events"
