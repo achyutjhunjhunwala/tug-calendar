@@ -35,15 +35,6 @@ functions:
     environment:
       TUG_NS_API: ${ssm:TUG_NS_API}
       TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
-      NODE_OPTIONS: -r elastic-apm-node/start
-      ELASTIC_APM_LAMBDA_APM_SERVER: ${ssm:ELASTIC_APM_SERVER}
-      ELASTIC_APM_SECRET_TOKEN: ${ssm:ELASTIC_SECRET_TOKEN}
-      ELASTIC_APM_SEND_STRATEGY: background
-      ELASTIC_APM_SERVICE_NAME: tug-calendar-daily
-      ELASTIC_APM_ENVIRONMENT: production
-    layers:
-      - arn:aws:lambda:eu-central-1:267093732750:layer:elastic-apm-extension-ver-1-4-0-x86_64:1
-      - arn:aws:lambda:eu-central-1:267093732750:layer:elastic-apm-node-ver-3-46-0:1
   weekly:
     handler: weekly.main
     events:
@@ -52,15 +43,6 @@ functions:
     environment:
       TUG_NS_API: ${ssm:TUG_NS_API}
       TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
-      NODE_OPTIONS: -r elastic-apm-node/start
-      ELASTIC_APM_LAMBDA_APM_SERVER: ${ssm:ELASTIC_APM_SERVER}
-      ELASTIC_APM_SECRET_TOKEN: ${ssm:ELASTIC_SECRET_TOKEN}
-      ELASTIC_APM_SEND_STRATEGY: background
-      ELASTIC_APM_SERVICE_NAME: tug-calendar-weekly
-      ELASTIC_APM_ENVIRONMENT: production
-    layers:
-      - arn:aws:lambda:eu-central-1:267093732750:layer:elastic-apm-extension-ver-1-4-0-x86_64:1
-      - arn:aws:lambda:eu-central-1:267093732750:layer:elastic-apm-node-ver-3-46-0:1
   monthly:
     handler: monthly.main
     events:
@@ -69,12 +51,3 @@ functions:
     environment:
       TUG_NS_API: ${ssm:TUG_NS_API}
       TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
-      NODE_OPTIONS: -r elastic-apm-node/start
-      ELASTIC_APM_LAMBDA_APM_SERVER: ${ssm:ELASTIC_APM_SERVER}
-      ELASTIC_APM_SECRET_TOKEN: ${ssm:ELASTIC_SECRET_TOKEN}
-      ELASTIC_APM_SEND_STRATEGY: background
-      ELASTIC_APM_SERVICE_NAME: tug-calendar-monthly
-      ELASTIC_APM_ENVIRONMENT: production
-    layers:
-      - arn:aws:lambda:eu-central-1:267093732750:layer:elastic-apm-extension-ver-1-4-0-x86_64:1
-      - arn:aws:lambda:eu-central-1:267093732750:layer:elastic-apm-node-ver-3-46-0:1
