@@ -24,7 +24,7 @@ jobs:
 
       - name: Get Google Project Config
         run: |
-          echo  '${{ secrets.TUG_GOOGLE_TOKEN }}' > ./tug-calendar-f52da1f5cc70.json
+          echo '${{ secrets.TUG_GOOGLE_TOKEN }}' > ./tug-calendar-93d646f8c570.json
           
         #serverless deploy
       - name: Deploy with Serverless

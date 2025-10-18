@@ -23,11 +23,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Get Google Project Config
+        run: |
+          echo '${{ secrets.TUG_GOOGLE_TOKEN }}' > ./tug-calendar-93d646f8c570.json
 
       - name: Run build
         run: npm run build
