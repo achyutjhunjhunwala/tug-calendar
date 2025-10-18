@@ -35,7 +35,7 @@ custom:
     number: 3
   esbuild:
     bundle: true
-    minify: ${self:custom.esbuild.minify.${self:provider.stage}, false}
+    minify: ${self:custom.esbuildMinify.${self:provider.stage}, false}
     sourcemap: true
     external:
       - googleapis
