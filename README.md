@@ -82,8 +82,8 @@ cp .env.example .env
 Update `.env` with your credentials:
 
 ```env
-TUG_NS_API_URL=https://api.theuiguy.com/notify
-TUG_NS_API_KEY=your-api-key
+TUG_NS_API=https://api.theuiguy.com/notify
+TUG_NS_TOKEN=your-api-key
 ELASTIC_CLOUD_ID=your-cloud-id
 ELASTIC_API_KEY=your-api-key
 SERVICE_NAME=tug-calendar
@@ -137,8 +137,8 @@ npm run lint:fix
 Configure the following SSM parameters in AWS:
 
 ```bash
-aws ssm put-parameter --name TUG_NS_API_URL --value "https://api.theuiguy.com/notify" --type String
-aws ssm put-parameter --name TUG_NS_API_KEY --value "your-api-key" --type SecureString
+aws ssm put-parameter --name TUG_NS_API --value "https://api.theuiguy.com/notify" --type String
+aws ssm put-parameter --name TUG_NS_TOKEN --value "your-api-key" --type SecureString
 aws ssm put-parameter --name ELASTIC_CLOUD_ID --value "your-cloud-id" --type String
 aws ssm put-parameter --name ELASTIC_API_KEY --value "your-api-key" --type SecureString
 ```

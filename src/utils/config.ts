@@ -10,8 +10,8 @@ const validateEnvVar = (key: string): string => {
 
 export const getConfig = (): EnvironmentConfig => {
   return {
-    tugNsApiUrl: validateEnvVar('TUG_NS_API_URL'),
-    tugNsApiKey: validateEnvVar('TUG_NS_API_KEY'),
+    tugNsApiUrl: validateEnvVar('TUG_NS_API'),
+    tugNsApiKey: validateEnvVar('TUG_NS_TOKEN'),
     elasticsearchCloudId: process.env.ELASTIC_CLOUD_ID || '',
     elasticsearchApiKey: process.env.ELASTIC_API_KEY || '',
     serviceName: process.env.SERVICE_NAME || 'tug-calendar',
