@@ -1,21 +1,52 @@
 {
   "name": "tug-calendar",
-  "version": "1.0.0",
-  "description": "",
-  "main": "handler.js",
+  "version": "2.0.0",
+  "description": "Calendar notification service that sends Google Calendar events via Telegram",
   "scripts": {
-    "start": "npx nodemon --exec \"serverless offline start\" --watch '*/**/*.js' --watch 'serverless.yml'"
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "start": "serverless offline start",
+    "deploy": "npm run build && serverless deploy",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "test": "echo \"Error: no tests yet\" && exit 0",
+    "test:local": "npm run build && node test-local.js",
+    "test:daily": "npm run build && node test-local.js daily",
+    "test:weekly": "npm run build && node test-local.js weekly",
+    "test:monthly": "npm run build && node test-local.js monthly"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "calendar",
+    "telegram",
+    "notifications",
+    "serverless",
+    "aws-lambda"
+  ],
+  "author": "Achyut Jhunjhunwala",
   "license": "ISC",
   "dependencies": {
-    "googleapis": "^95.0.0",
-    "node-fetch": "^2.6.7"
+    "googleapis": "144.0.0",
+    "pino": "9.5.0",
+    "pino-elasticsearch": "8.0.0",
+    "pino-pretty": "13.0.0"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
+    "@types/node": "^20.17.6",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.24.0",
+    "eslint": "^8.57.1",
     "serverless": "^4.4.6",
+    "serverless-esbuild": "^1.54.3",
     "serverless-offline": "^14.3.4",
-    "serverless-prune-plugin": "^2.1.0"
+    "serverless-prune-plugin": "^2.1.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

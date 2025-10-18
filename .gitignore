@@ -97,6 +97,10 @@ dist
 # Serverless directories
 .serverless/
 
+# TypeScript build artifacts
+dist/
+*.tsbuildinfo
+
 # FuseBox cache
 .fusebox/
 
@@ -117,5 +121,12 @@ dist
 .pnp.*
 
 tug-calendar-f52da1f5cc70.json
+tug-calendar-93d646f8c570.json
 
 .idea
+.DS_Store
+
+# Project planning
+plan.md
+
+.serena

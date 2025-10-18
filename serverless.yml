@@ -1,5 +1,7 @@
 service: tug-calendar
+
 plugins:
+  - serverless-esbuild
   - serverless-offline
   - serverless-prune-plugin
 
@@ -7,9 +9,19 @@ frameworkVersion: ~4.17.0
 
 provider:
   name: aws
-  runtime: nodejs22.x
-  stage: production
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
   region: ${opt:region, self:custom.defaultRegion}
+  timeout: 30
+  memorySize: 256
+  environment:
+    NODE_ENV: ${self:provider.stage}
+    SERVICE_NAME: tug-calendar
+    LOG_LEVEL: info
+    TUG_NS_API_URL: ${ssm:TUG_NS_API_URL}
+    TUG_NS_API_KEY: ${ssm:TUG_NS_API_KEY}
+    ELASTIC_CLOUD_ID: ${ssm:ELASTIC_CLOUD_ID, ''}
+    ELASTIC_API_KEY: ${ssm:ELASTIC_API_KEY, ''}
 
 custom:
   defaultRegion: eu-central-1
@@ -21,29 +33,40 @@ custom:
   prune:
     automatic: true
     number: 3
+  esbuild:
+    bundle: true
+    minify: ${self:custom.esbuild.minify.${self:provider.stage}, false}
+    sourcemap: true
+    external:
+      - googleapis
+      - google-auth-library
+    target: node20
+    platform: node
+    concurrency: 10
+    packager: npm
+    keepOutputDirectory: false
+  esbuildMinify:
+    dev: false
+    production: true
 
 functions:
   daily:
-    handler: daily.main
+    handler: src/handlers/daily.handler.handler
     events:
-      # Invoke Lambda function every day at 6 AM UTC
-      - schedule: cron(0 6 * * ? *)
-    environment:
-      TUG_NS_API: ${ssm:TUG_NS_API}
-      TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
+      - schedule:
+          rate: cron(0 6 * * ? *)
+          timezone: UTC
+
   weekly:
-    handler: weekly.main
+    handler: src/handlers/weekly.handler.handler
     events:
-      # Invoke Lambda function every day at 8 AM UTC
-      - schedule: cron(0 8 * * ? *)
-    environment:
-      TUG_NS_API: ${ssm:TUG_NS_API}
-      TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
+      - schedule:
+          rate: cron(0 8 * * ? *)
+          timezone: UTC
+
   monthly:
-    handler: monthly.main
+    handler: src/handlers/monthly.handler.handler
     events:
-      # Invoke Lambda function every day at 6:30 AM UTC
-      - schedule: cron(30 6 * * ? *)
-    environment:
-      TUG_NS_API: ${ssm:TUG_NS_API}
-      TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
+      - schedule:
+          rate: cron(30 6 * * ? *)
+          timezone: UTC
