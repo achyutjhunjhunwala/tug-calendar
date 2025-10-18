@@ -1,15 +1,25 @@
 service: tug-calendar
 
 plugins:
-  - serverless-esbuild
   - serverless-offline
   - serverless-prune-plugin
 
 frameworkVersion: ~4.17.0
 
+build:
+  esbuild:
+    bundle: true
+    minify: true
+    sourcemap: false
+    exclude:
+      - googleapis
+      - google-auth-library
+    target: node22
+    platform: node
+
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs22.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, self:custom.defaultRegion}
   timeout: 30
@@ -33,21 +43,6 @@ custom:
   prune:
     automatic: true
     number: 3
-  esbuild:
-    bundle: true
-    minify: ${self:custom.esbuildMinify.${self:provider.stage}, false}
-    sourcemap: true
-    external:
-      - googleapis
-      - google-auth-library
-    target: node20
-    platform: node
-    concurrency: 10
-    packager: npm
-    keepOutputDirectory: false
-  esbuildMinify:
-    dev: false
-    production: true
 
 functions:
   daily:
