@@ -1,5 +1,6 @@
 import pino from 'pino';
 import type { Logger } from 'pino';
+import pinoElasticsearch from 'pino-elasticsearch';
 
 const createLogger = (): Logger => {
   const elasticsearchCloudId = process.env.ELASTIC_CLOUD_ID;
@@ -19,40 +20,38 @@ const createLogger = (): Logger => {
   };
 
   if (elasticsearchCloudId && elasticsearchApiKey && nodeEnv !== 'development') {
-    return pino(
-      baseConfig,
-      pino.transport({
-        target: 'pino-elasticsearch',
-        options: {
-          cloud: {
-            id: elasticsearchCloudId,
-          },
-          auth: {
-            apiKey: elasticsearchApiKey,
-          },
-          index: 'logs-tug.calendar-production',
-          consistency: 'one',
-          node: undefined,
-          esVersion: 8,
-          flushBytes: 100,
-          flushInterval: 10000,
-          'op-type': 'create',
-        },
-      })
-    );
+    const streamToElastic = pinoElasticsearch({
+      cloud: {
+        id: elasticsearchCloudId,
+      },
+      auth: {
+        apiKey: elasticsearchApiKey,
+      },
+      index: 'logs-tug.calendar-production',
+      esVersion: 8,
+      flushBytes: 100,
+      flushInterval: 10000,
+      opType: 'create',
+    });
+
+    return pino(baseConfig, streamToElastic);
   }
 
-  return pino({
-    ...baseConfig,
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-        translateTime: 'SYS:standard',
-        ignore: 'pid,hostname',
+  if (nodeEnv === 'development') {
+    return pino({
+      ...baseConfig,
+      transport: {
+        target: 'pino-pretty',
+        options: {
+          colorize: true,
+          translateTime: 'SYS:standard',
+          ignore: 'pid,hostname',
+        },
       },
-    },
-  });
+    });
+  }
+
+  return pino(baseConfig);
 };
 
 export const logger = createLogger();
