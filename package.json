@@ -39,7 +39,7 @@
     "@typescript-eslint/parser": "^8.46.3",
     "dotenv": "^17.2.3",
     "esbuild": "^0.25.12",
-    "eslint": "^9.39.0",
+    "eslint": "^9.39.1",
     "serverless": "^4.23.0",
     "serverless-esbuild": "^1.54.3",
     "serverless-offline": "^14.3.4",
