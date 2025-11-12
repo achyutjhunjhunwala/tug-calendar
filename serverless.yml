@@ -1,6 +1,7 @@
 service: tug-calendar
 
 plugins:
+  - serverless-esbuild
   - serverless-offline
   - serverless-prune-plugin
 
