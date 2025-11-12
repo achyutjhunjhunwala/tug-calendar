@@ -46,7 +46,7 @@ custom:
 
 functions:
   daily:
-    handler: src/handlers/daily.handler.handler
+    handler: src/handlers/daily.handler
     events:
       - schedule:
           rate: cron(0 6 * * ? *)
@@ -54,7 +54,7 @@ functions:
           timezone: UTC
 
   weekly:
-    handler: src/handlers/weekly.handler.handler
+    handler: src/handlers/weekly.handler
     events:
       - schedule:
           rate: cron(0 8 * * ? *)
@@ -62,7 +62,7 @@ functions:
           timezone: UTC
 
   monthly:
-    handler: src/handlers/monthly.handler.handler
+    handler: src/handlers/monthly.handler
     events:
       - schedule:
           rate: cron(30 6 * * ? *)

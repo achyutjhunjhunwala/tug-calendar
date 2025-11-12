@@ -7,9 +7,9 @@
 
 require('dotenv').config();
 
-const { handler: dailyHandler } = require('./dist/src/handlers/daily.handler');
-const { handler: weeklyHandler } = require('./dist/src/handlers/weekly.handler');
-const { handler: monthlyHandler } = require('./dist/src/handlers/monthly.handler');
+const { handler: dailyHandler } = require('./dist/src/handlers/daily');
+const { handler: weeklyHandler } = require('./dist/src/handlers/weekly');
+const { handler: monthlyHandler } = require('./dist/src/handlers/monthly');
 
 // Minimal context for local testing
 const context = {
