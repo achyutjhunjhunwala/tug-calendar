@@ -30,8 +30,6 @@ provider:
     LOG_LEVEL: info
     TUG_NS_API: ${ssm:TUG_NS_API}
     TUG_NS_TOKEN: ${ssm:TUG_NS_TOKEN}
-    ELASTIC_CLOUD_ID: ${ssm:ELASTIC_CLOUD_ID, ''}
-    ELASTIC_API_KEY: ${ssm:ELASTIC_API_KEY, ''}
 
 custom:
   defaultRegion: eu-central-1
