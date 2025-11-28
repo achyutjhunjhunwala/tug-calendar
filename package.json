@@ -33,18 +33,18 @@
     "pino-pretty": "13.1.2"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.157",
-    "@types/node": "^24.10.0",
-    "@typescript-eslint/eslint-plugin": "^8.46.3",
-    "@typescript-eslint/parser": "^8.46.3",
-    "dotenv": "^17.2.3",
-    "esbuild": "^0.27.0",
-    "eslint": "^9.39.1",
-    "serverless": "^4.23.0",
-    "serverless-esbuild": "^1.54.3",
-    "serverless-offline": "^14.3.4",
-    "serverless-prune-plugin": "^2.1.0",
-    "typescript": "^5.6.3"
+    "@types/aws-lambda": "8.10.157",
+    "@types/node": "24.10.0",
+    "@typescript-eslint/eslint-plugin": "8.46.3",
+    "@typescript-eslint/parser": "8.46.3",
+    "dotenv": "17.2.3",
+    "esbuild": "0.24.0",
+    "eslint": "9.39.1",
+    "serverless": "4.23.0",
+    "serverless-esbuild": "1.54.3",
+    "serverless-offline": "14.3.4",
+    "serverless-prune-plugin": "2.1.0",
+    "typescript": "5.6.3"
   },
   "engines": {
     "node": ">=22.0.0"
